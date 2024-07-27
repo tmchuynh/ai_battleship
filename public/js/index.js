@@ -324,8 +324,8 @@ Game.prototype.placeRandomly = function (e) {
       e.target.removeEventListener(e.type, arguments.callee);
       e.target.self.humanFleet.placeShipsRandomly();
       e.target.self.readyToPlay = true;
-      document.getElementById('roster-sidebar').setAttribute('class', 'hidden');
-      this.setAttribute('class', 'hidden');
+      document.getElementById('roster-sidebar').setAttribute('class', 'invisible');
+      this.setAttribute('class', 'invisible');
 };
 // Ends placing the current ship
 Game.prototype.endPlacing = function (shipType) {
@@ -375,9 +375,6 @@ Game.prototype.resetRosterSidebar = function () {
       }
       document.getElementById('rotate-button').removeAttribute('class');
       document.getElementById('start-game').setAttribute('class', 'hidden');
-      if (DEBUG_MODE) {
-            document.getElementById('place-randomly').removeAttribute('class');
-      }
 };
 
 Game.prototype.showRestartSidebar = function () {

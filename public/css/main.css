@@ -55,15 +55,11 @@ button:active {
       color: #ffffff;
       background-color: #ff9200;
 }
+
 #start-game:hover,
 #place-randomly:hover,
 #restart-game:hover {
       background-color: #ffb655;
-}
-#start-game:active,
-#place-randomly:active,
-#restart-game:active {
-      background-color: #ffce8e;
 }
 
 #prefetch1 {
@@ -83,6 +79,7 @@ button:active {
 .tagline {
       margin-bottom: 2em;
 }
+
 .instructions {
       width: auto;
       display: inline-block;
@@ -95,6 +92,7 @@ button:active {
       position: relative;
       justify-content: space-around;
 }
+
 .sidebar {
       width: 15rem;
       padding: 1.5rem 3rem;
