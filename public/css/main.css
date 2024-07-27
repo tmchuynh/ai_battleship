@@ -212,7 +212,7 @@ button {
 .computer-player .grid-cell:hover,
 .computer-player:hover {
       cursor:
-            url("../img/crosshair.png") 16 16,
+            url("../img/location-on.svg") 32 32,
             crosshair;
 }
 .grid-ship,
