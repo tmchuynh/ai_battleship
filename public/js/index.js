@@ -244,6 +244,7 @@ Game.prototype.placementListener = function (e) {
                               el.setAttribute('class', 'hidden');
 
                               document.getElementById('start-game').removeAttribute('class');
+                              document.getElementById("place-randomly").classList.add('hidden');
                         };
                         el.addEventListener(transitionEndEventName(), onTransitionEnd, { once: true });
                         el.setAttribute('class', 'invisible');
