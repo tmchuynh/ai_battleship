@@ -90,34 +90,29 @@ button:active {
       margin: 0 auto 3em auto;
 }
 
-/* .container {
-      width: 870px;
-      text-align: center;
-      margin: 20px auto 100px auto;
-} */
 .game-container {
+      width: 100%;
       position: relative;
+      justify-content: space-around;
 }
-#roster-sidebar,
-#stats-sidebar,
-#restart-sidebar {
-      width: 150px;
-      padding: 20px;
+.sidebar {
+      width: 15rem;
+      padding: 1.5rem 3rem;
       margin: 0;
       background-color: #eeeeee;
-      position: absolute;
-      top: 4.5em;
+      /* position: absolute; */
+      /* top: 4.5em; */
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
-      border-radius: 5px;
+      border-radius: 25px;
 }
-#roster-sidebar,
-#restart-sidebar {
+/* .left {
       left: -200px;
 }
-#stats-sidebar {
+
+.right {
       right: -200px;
-}
+} */
 #roster-sidebar h2,
 #stats-sidebar h2,
 #restart-sidebar h2 {
