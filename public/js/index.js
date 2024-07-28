@@ -304,12 +304,8 @@ Game.prototype.toggleRotation = function (e) {
 Game.prototype.startGame = function (e) {
       var self = e.target.self;
       var el = document.getElementById('roster-sidebar');
-      // var fn = function () { el.setAttribute('class', 'invisible'); };
-      // el.addEventListener(transitionEndEventName(), fn, false);
       el.setAttribute('class', 'invisible');
       self.readyToPlay = true;
-
-      // el.removeEventListener(transitionEndEventName(), fn, false);
 };
 // Click handler for Restart Game button
 Game.prototype.restartGame = function (e) {
