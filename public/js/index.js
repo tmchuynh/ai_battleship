@@ -115,7 +115,6 @@ Game.prototype.checkIfWon = function () {
             Game.gameOver = true;
             Game.stats.wonGame();
             Game.stats.syncStats();
-            console.log('computer fleet');
             Game.stats.updateStatsSidebar();
             this.showRestartSidebar();
       } else if (this.humanFleet.allShipsSunk()) {
@@ -124,7 +123,6 @@ Game.prototype.checkIfWon = function () {
             Game.gameOver = true;
             Game.stats.lostGame();
             Game.stats.syncStats();
-            console.log('human fleet lost');
             Game.stats.updateStatsSidebar();
             this.revealComputerShips();
             this.showRestartSidebar();
@@ -485,7 +483,6 @@ Game.prototype.init = function () {
                   Game.gameOver = true;
                   Game.stats.lostGame();
                   Game.stats.syncStats();
-                  console.log('buttons clicked');
                   this.showRestartSidebar();
             });
             this.forfeitListenerAdded = true;
@@ -546,8 +543,6 @@ class Grid {
 
 
 // Fleet object
-// This object is used to keep track of a player's portfolio of ships
-// Constructor
 class Fleet {
       constructor(playerGrid, player) {
             this.numShips = CONST.AVAILABLE_SHIPS.length;
