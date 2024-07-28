@@ -110,7 +110,8 @@ Game.gameOver = false;
 // Checks if the game is won, and if it is, re-initializes the game
 Game.prototype.checkIfWon = function () {
       if (this.computerFleet.allShipsSunk()) {
-            alert('Congratulations, you win!');
+            var winModal = new bootstrap.Modal(document.getElementById('winModal'));
+            winModal.show();
             document.getElementById('forfeit-sidebar').classList.add('hidden');
             Game.gameOver = true;
             Game.stats.wonGame();
@@ -118,7 +119,8 @@ Game.prototype.checkIfWon = function () {
             Game.stats.updateStatsSidebar();
             this.showRestartSidebar();
       } else if (this.humanFleet.allShipsSunk()) {
-            alert('Yarr! The computer sank all your ships. Try again.');
+            var loseModal = new bootstrap.Modal(document.getElementById('loseModal'));
+            loseModal.show();
             document.getElementById('forfeit-sidebar').classList.add('hidden');
             Game.gameOver = true;
             Game.stats.lostGame();
@@ -128,6 +130,7 @@ Game.prototype.checkIfWon = function () {
             this.showRestartSidebar();
       }
 };
+
 
 Game.prototype.revealComputerShips = function () {
       const computerShips = this.computerFleet.fleetRoster;
