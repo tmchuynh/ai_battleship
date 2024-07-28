@@ -112,6 +112,7 @@ Game.gameOver = false;
 Game.prototype.checkIfWon = function () {
       if (this.computerFleet.allShipsSunk()) {
             alert('Congratulations, you win!');
+            document.getElementById('forfeit-sidebar').classList.toggle('hidden');
             Game.gameOver = true;
             Game.stats.wonGame();
             Game.stats.syncStats();
@@ -119,6 +120,7 @@ Game.prototype.checkIfWon = function () {
             this.showRestartSidebar();
       } else if (this.humanFleet.allShipsSunk()) {
             alert('Yarr! The computer sank all your ships. Try again.');
+            document.getElementById('forfeit-sidebar').classList.toggle('hidden');
             Game.gameOver = true;
             Game.stats.lostGame();
             Game.stats.syncStats();
@@ -239,14 +241,10 @@ Game.prototype.placementListener = function (e) {
 
                   if (self.areAllShipsPlaced()) {
                         const el = document.getElementById('rotate-button');
-                        const onTransitionEnd = function () {
-                              el.setAttribute('class', 'hidden');
-
-                              document.getElementById('start-game').removeAttribute('class');
-                              document.getElementById("place-randomly").classList.add('hidden');
-                        };
-                        el.addEventListener(transitionEndEventName(), onTransitionEnd, { once: true });
                         el.setAttribute('class', 'hidden');
+
+                        document.getElementById('start-game').classList.remove('hidden');
+                        document.getElementById("place-randomly").classList.add('hidden');
                   }
             }
       }
@@ -303,8 +301,10 @@ Game.prototype.toggleRotation = function (e) {
 // Click handler for the Start Game button
 Game.prototype.startGame = function (e) {
       var self = e.target.self;
-      var el = document.getElementById('roster-sidebar');
-      el.setAttribute('class', 'invisible');
+      var roster = document.getElementById('roster-sidebar');
+      roster.setAttribute('class', 'hidden');
+      var forfeit = document.getElementById('forfeit-sidebar');
+      forfeit.classList.remove('hidden');
       self.readyToPlay = true;
 };
 // Click handler for Restart Game button
@@ -312,9 +312,9 @@ Game.prototype.restartGame = function (e) {
       e.target.removeEventListener(e.type, arguments.callee);
       var self = e.target.self;
       document.getElementById('restart-sidebar').classList.add('hidden');
-      document.getElementById('roster-sidebar').classList.remove('invisible');
       document.getElementById('roster-sidebar').classList.remove('hidden');
       document.getElementById('roster-sidebar').classList.add('sidebar');
+      document.getElementById('forfeit-sidebar').classList.add('hidden');
       self.resetFogOfWar();
       self.init();
 };
@@ -323,8 +323,8 @@ Game.prototype.placeRandomly = function (e) {
       e.target.removeEventListener(e.type, arguments.callee);
       e.target.self.humanFleet.placeShipsRandomly();
       e.target.self.readyToPlay = true;
-      document.getElementById('roster-sidebar').setAttribute('class', 'invisible');
-      this.setAttribute('class', 'invisible');
+      document.getElementById('roster-sidebar').setAttribute('class', 'hidden');
+      document.getElementById('forfeit-sidebar').classList.toggle('hidden');
 };
 // Ends placing the current ship
 Game.prototype.endPlacing = function (shipType) {
@@ -382,7 +382,7 @@ Game.prototype.showRestartSidebar = function () {
       sidebar.classList.add('highlight');
 
       const roster = document.getElementById('roster-sidebar');
-      roster.classList.remove('invisible');
+      // roster.classList.remove('invisible');
       roster.classList.add('hidden');
 
       // Deregister listeners
