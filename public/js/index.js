@@ -57,6 +57,7 @@ class Stats {
       }
 
       syncStats() {
+            console.log(this.gamesPlayed);
             if (!this.skipCurrentGame) {
                   this.totalShots += this.shotsTaken;
                   this.totalHits += this.shotsHit;
@@ -114,6 +115,7 @@ Game.prototype.checkIfWon = function () {
             Game.gameOver = true;
             Game.stats.wonGame();
             Game.stats.syncStats();
+            console.log('computer fleet');
             Game.stats.updateStatsSidebar();
             this.showRestartSidebar();
       } else if (this.humanFleet.allShipsSunk()) {
@@ -122,6 +124,7 @@ Game.prototype.checkIfWon = function () {
             Game.gameOver = true;
             Game.stats.lostGame();
             Game.stats.syncStats();
+            console.log('human fleet lost');
             Game.stats.updateStatsSidebar();
             this.revealComputerShips();
             this.showRestartSidebar();
@@ -466,23 +469,30 @@ Game.prototype.init = function () {
       startButton.self = this;
       startButton.addEventListener('click', this.startGame, false);
       var resetButton = document.getElementById('reset-stats');
-      resetButton.addEventListener('click', Game.stats.resetStats, false);
+      resetButton.addEventListener('click', Game.stats.resetStats.bind(Game.stats), false);
+
       var randomButton = document.getElementById('place-randomly');
       randomButton.self = this;
       randomButton.addEventListener('click', this.placeRandomly, false);
       this.computerFleet.placeShipsRandomly();
 
       var forfeitButton = document.getElementById('forfeit');
-      forfeitButton.self = this;
-      forfeitButton.addEventListener('click', () => {
-            this.revealComputerShips();
-            document.getElementById('forfeit-sidebar').classList.add('hidden');
-            this.showRestartSidebar();
-      });
+      // check if an event listener has already been added and only add it if it hasn't
+      if (!this.forfeitListenerAdded) {
+            forfeitButton.addEventListener('click', () => {
+                  this.revealComputerShips();
+                  document.getElementById('forfeit-sidebar').classList.add('hidden');
+                  Game.gameOver = true;
+                  Game.stats.lostGame();
+                  Game.stats.syncStats();
+                  console.log('buttons clicked');
+                  this.showRestartSidebar();
+            });
+            this.forfeitListenerAdded = true;
+      }
 };
 
 // Grid object
-// Constructor
 class Grid {
       constructor(size) {
             this.size = size;
