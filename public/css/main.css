@@ -193,10 +193,14 @@ button {
             url("../img/location-on.svg") 32 32,
             crosshair;
 }
+
+/* a normal ship */
 .grid-ship,
 .human-player .grid-ship:hover {
       background-color: #808080;
 }
+
+/* cannonball in the water */
 .grid-miss,
 .grid-miss:hover,
 .human-player .grid-miss:hover {
@@ -206,6 +210,8 @@ button {
       background-position: center;
       background-repeat: no-repeat;
 }
+
+/* damanged ship */
 .grid-hit,
 .grid-hit:hover,
 .human-player .grid-hit:hover {
@@ -216,6 +222,7 @@ button {
       background-repeat: no-repeat;
 }
 
+/* marks where ships were that weren't hit */
 .grid-reveal,
 .grid-reveal:hover {
       /* background-color: purple; */
@@ -225,31 +232,19 @@ button {
       background-repeat: no-repeat;
 }
 
+/* sunked ship */
 .grid-sunk,
 .grid-sunk:hover,
 .human-player .grid-sunk:hover {
-      background-color: #222222;
+      background-image: url("../img/sinking-ship.svg");
+      background-position: center;
+      background-repeat: no-repeat;
 }
 
 .highlight {
       overflow: visible; /* Bugfix for IE */
 }
-.highlight:before {
-      content: "\2193";
-      font-weight: bold;
-      font-size: 75px;
-      color: #ff9200;
-      text-shadow: 0 0 5px #ff9200;
-      position: absolute;
-      width: 100px;
-      height: 100px;
-      top: -100px;
-      left: 50%;
-      margin-left: -50px;
-      -webkit-animation: highlight 1.5s infinite;
-      -o-animation: highlight 1.5s infinite;
-      animation: highlight 1.5s infinite;
-}
+
 .current-step {
       font-weight: bold;
 }

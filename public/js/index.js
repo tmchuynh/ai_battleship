@@ -134,7 +134,7 @@ Game.prototype.revealComputerShips = function () {
       computerShips.forEach(ship => {
             const shipCells = ship.getAllShipCells();
             shipCells.forEach(cell => {
-                  if (this.computerGrid.cells[cell.x][cell.y] != CONST.TYPE_HIT) {
+                  if (this.computerGrid.cells[cell.x][cell.y] != CONST.TYPE_HIT || this.computerGrid.cells[cell.x][cell.y] != CONST.TYPE_SUNK) {
                         this.computerGrid.updateCell(cell.x, cell.y, 'reveal', CONST.COMPUTER_PLAYER);
                   }
             });
@@ -235,7 +235,6 @@ Game.prototype.placementListener = function (e) {
                   // End placing this ship
                   self.endPlacing(Game.placeShipType);
 
-
                   self.placingOnGrid = false;
 
                   if (self.areAllShipsPlaced()) {
@@ -247,7 +246,7 @@ Game.prototype.placementListener = function (e) {
                               document.getElementById("place-randomly").classList.add('hidden');
                         };
                         el.addEventListener(transitionEndEventName(), onTransitionEnd, { once: true });
-                        el.setAttribute('class', 'invisible');
+                        el.setAttribute('class', 'hidden');
                   }
             }
       }
@@ -305,19 +304,21 @@ Game.prototype.toggleRotation = function (e) {
 Game.prototype.startGame = function (e) {
       var self = e.target.self;
       var el = document.getElementById('roster-sidebar');
-      var fn = function () { el.setAttribute('class', 'invisible'); };
-      el.addEventListener(transitionEndEventName(), fn, false);
+      // var fn = function () { el.setAttribute('class', 'invisible'); };
+      // el.addEventListener(transitionEndEventName(), fn, false);
       el.setAttribute('class', 'invisible');
       self.readyToPlay = true;
 
-      el.removeEventListener(transitionEndEventName(), fn, false);
+      // el.removeEventListener(transitionEndEventName(), fn, false);
 };
 // Click handler for Restart Game button
 Game.prototype.restartGame = function (e) {
       e.target.removeEventListener(e.type, arguments.callee);
       var self = e.target.self;
       document.getElementById('restart-sidebar').classList.add('hidden');
+      document.getElementById('roster-sidebar').classList.remove('invisible');
       document.getElementById('roster-sidebar').classList.remove('hidden');
+      document.getElementById('roster-sidebar').classList.add('sidebar');
       self.resetFogOfWar();
       self.init();
 };
@@ -384,7 +385,7 @@ Game.prototype.showRestartSidebar = function () {
       sidebar.classList.remove('hidden');
       sidebar.classList.add('highlight');
 
-      const roster = document.getElementById('roster-sideby');
+      const roster = document.getElementById('roster-sidebar');
       roster.classList.remove('invisible');
       roster.classList.add('hidden');
 
