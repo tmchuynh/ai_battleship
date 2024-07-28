@@ -197,16 +197,14 @@ button {
 /* a normal ship */
 .grid-ship,
 .human-player .grid-ship:hover {
-      background-color: #808080;
+      background-image: url("../img/ship.svg");
 }
 
 /* cannonball in the water */
 .grid-miss,
 .grid-miss:hover,
 .human-player .grid-miss:hover {
-      background-color: #ffffff;
-      background-image: url("../img/cross-icon.png"); /* Fallback */
-      background-image: url("../img/cross-icon.svg");
+      background-image: url("../img/bomb-emoji.svg");
       background-position: center;
       background-repeat: no-repeat;
 }
@@ -215,9 +213,7 @@ button {
 .grid-hit,
 .grid-hit:hover,
 .human-player .grid-hit:hover {
-      background-color: #f60018;
-      background-image: url("../img/cross-icon.png"); /* Fallback */
-      background-image: url("../img/cross-icon.svg");
+      background-image: url("../img/bomb-explosion.svg");
       background-position: center;
       background-repeat: no-repeat;
 }
@@ -226,8 +222,7 @@ button {
 .grid-reveal,
 .grid-reveal:hover {
       /* background-color: purple; */
-      background-image: url("../img/ship-wheel.svg"); /* Fallback */
-      /* background-image: url("../img/ship-wheel.png"); */
+      background-image: url("../img/ship.svg");
       background-position: center;
       background-repeat: no-repeat;
 }

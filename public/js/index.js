@@ -1,5 +1,4 @@
 // Global Constants
-var DEBUG_MODE = localStorage.getItem('DEBUG_MODE') === 'true';
 var CONST = {};
 CONST.AVAILABLE_SHIPS = ['carrier', 'battleship', 'destroyer', 'submarine', 'patrolboat'];
 // You are player 0 and the computer is player 1
@@ -38,7 +37,6 @@ class Stats {
             this.gamesPlayed = +localStorage.getItem('gamesPlayed') || 0;
             this.gamesWon = +localStorage.getItem('gamesWon') || 0;
             this.uuid = localStorage.getItem('uuid') || this.createUUID();
-            this.skipCurrentGame = DEBUG_MODE ? true : false;
       }
 
       incrementShots() {
@@ -112,7 +110,7 @@ Game.gameOver = false;
 Game.prototype.checkIfWon = function () {
       if (this.computerFleet.allShipsSunk()) {
             alert('Congratulations, you win!');
-            document.getElementById('forfeit-sidebar').classList.toggle('hidden');
+            document.getElementById('forfeit-sidebar').classList.add('hidden');
             Game.gameOver = true;
             Game.stats.wonGame();
             Game.stats.syncStats();
@@ -120,7 +118,7 @@ Game.prototype.checkIfWon = function () {
             this.showRestartSidebar();
       } else if (this.humanFleet.allShipsSunk()) {
             alert('Yarr! The computer sank all your ships. Try again.');
-            document.getElementById('forfeit-sidebar').classList.toggle('hidden');
+            document.getElementById('forfeit-sidebar').classList.add('hidden');
             Game.gameOver = true;
             Game.stats.lostGame();
             Game.stats.syncStats();
@@ -314,6 +312,7 @@ Game.prototype.restartGame = function (e) {
       document.getElementById('restart-sidebar').classList.add('hidden');
       document.getElementById('roster-sidebar').classList.remove('hidden');
       document.getElementById('roster-sidebar').classList.add('sidebar');
+      document.getElementById('roster-sidebar').classList.add('mx-5');
       document.getElementById('forfeit-sidebar').classList.add('hidden');
       self.resetFogOfWar();
       self.init();
@@ -324,7 +323,7 @@ Game.prototype.placeRandomly = function (e) {
       e.target.self.humanFleet.placeShipsRandomly();
       e.target.self.readyToPlay = true;
       document.getElementById('roster-sidebar').setAttribute('class', 'hidden');
-      document.getElementById('forfeit-sidebar').classList.toggle('hidden');
+      document.getElementById('forfeit-sidebar').classList.remove('hidden');
 };
 // Ends placing the current ship
 Game.prototype.endPlacing = function (shipType) {
@@ -472,6 +471,14 @@ Game.prototype.init = function () {
       randomButton.self = this;
       randomButton.addEventListener('click', this.placeRandomly, false);
       this.computerFleet.placeShipsRandomly();
+
+      var forfeitButton = document.getElementById('forfeit');
+      forfeitButton.self = this;
+      forfeitButton.addEventListener('click', () => {
+            this.revealComputerShips();
+            document.getElementById('forfeit-sidebar').classList.add('hidden');
+            this.showRestartSidebar();
+      });
 };
 
 // Grid object
@@ -653,8 +660,6 @@ class Fleet {
       }
 
       // Finds a ship by its type
-      // Param shipType is a string
-      // Returns the ship object that is of type shipType
       // If no ship exists, this returns null.
       findShipByType(shipType) {
             for (var i = 0; i < this.fleetRoster.length; i++) {
@@ -665,7 +670,6 @@ class Fleet {
             return null;
       }
       // Checks to see if all ships have been sunk
-      // Returns boolean
       allShipsSunk() {
             for (var i = 0; i < this.fleetRoster.length; i++) {
                   // If one or more ships are not sunk, then the sentence "all ships are sunk" is false.
@@ -940,12 +944,7 @@ class AI {
                   }
             }
       }
-      metagame() {
-            // Inputs:
-            // Proximity of hit cells to edge
-            // Proximity of hit cells to each other
-            // Edit the probability grid by multiplying each cell with a new probability weight (e.g. 0.4, or 3). Set this as a CONST and make 1-CONST the inverse for decreasing, or 2*CONST for increasing
-      }
+
       // Finds a human ship by coordinates
       // Returns Ship
       findHumanShip(x, y) {
@@ -1068,35 +1067,7 @@ if (!Array.prototype.map) {
 }
 
 
-// Browser compatability workaround for transition end event names.
-// From modernizr: http://stackoverflow.com/a/9090128
-function transitionEndEventName() {
-      var i,
-            undefined,
-            el = document.createElement('div'),
-            transitions = {
-                  'transition': 'transitionend',
-                  'OTransition': 'otransitionend',  // oTransitionEnd in very old Opera
-                  'MozTransition': 'transitionend',
-                  'WebkitTransition': 'webkitTransitionEnd'
-            };
-
-      for (i in transitions) {
-            if (transitions.hasOwnProperty(i) && el.style[i] !== undefined) {
-                  return transitions[i];
-            }
-      }
-}
-
 // Returns a random number between min (inclusive) and max (exclusive)
 function getRandom(min, max) {
       return Math.random() * (max - min) + min;
-}
-
-// Toggles on or off DEBUG_MODE
-function setDebug(val) {
-      DEBUG_MODE = val;
-      localStorage.setItem('DEBUG_MODE', val);
-      localStorage.setItem('showTutorial', 'false');
-      window.location.reload();
 }
