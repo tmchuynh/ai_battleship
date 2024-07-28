@@ -62,20 +62,6 @@ button:active {
       background-color: #ffb655;
 }
 
-#prefetch1 {
-      background: url("../img/cross-icon.svg");
-}
-#prefetch2 {
-      background: url("../img/cross-icon.png");
-}
-#prefetch3 {
-      background: url("../img/crosshair.png");
-}
-.prefetch {
-      background-repeat: no-repeat;
-      background-position: -9999px -9999px;
-}
-
 .tagline {
       margin-bottom: 2em;
 }
@@ -98,19 +84,11 @@ button:active {
       padding: 1.5rem 3rem;
       margin: 0;
       background-color: #eeeeee;
-      /* position: absolute; */
-      /* top: 4.5em; */
       -webkit-border-radius: 5px;
       -moz-border-radius: 5px;
       border-radius: 25px;
 }
-/* .left {
-      left: -200px;
-}
 
-.right {
-      right: -200px;
-} */
 #roster-sidebar h2,
 #stats-sidebar h2,
 #restart-sidebar h2 {

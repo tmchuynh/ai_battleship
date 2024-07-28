@@ -305,7 +305,7 @@ Game.prototype.toggleRotation = function (e) {
 Game.prototype.startGame = function (e) {
       var self = e.target.self;
       var el = document.getElementById('roster-sidebar');
-      var fn = function () { el.setAttribute('class', 'hidden'); };
+      var fn = function () { el.setAttribute('class', 'invisible'); };
       el.addEventListener(transitionEndEventName(), fn, false);
       el.setAttribute('class', 'invisible');
       self.readyToPlay = true;
@@ -316,7 +316,8 @@ Game.prototype.startGame = function (e) {
 Game.prototype.restartGame = function (e) {
       e.target.removeEventListener(e.type, arguments.callee);
       var self = e.target.self;
-      document.getElementById('restart-sidebar').setAttribute('class', 'hidden');
+      document.getElementById('restart-sidebar').classList.add('hidden');
+      document.getElementById('roster-sidebar').classList.remove('hidden');
       self.resetFogOfWar();
       self.init();
 };
@@ -382,6 +383,10 @@ Game.prototype.showRestartSidebar = function () {
       const sidebar = document.getElementById('restart-sidebar');
       sidebar.classList.remove('hidden');
       sidebar.classList.add('highlight');
+
+      const roster = document.getElementById('roster-sideby');
+      roster.classList.remove('invisible');
+      roster.classList.add('hidden');
 
       // Deregister listeners
       document.querySelectorAll('.computer-player .grid-cell').forEach(cell => {
