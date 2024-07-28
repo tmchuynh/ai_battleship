@@ -162,7 +162,6 @@ Game.prototype.shoot = function (x, y, targetPlayer) {
                   targetFleet = this.computerFleet;
                   break;
             default:
-                  console.error("There was an error trying to find the correct player to target");
                   return null;
       }
 
@@ -483,6 +482,8 @@ Game.prototype.init = function () {
             forfeitButton.addEventListener('click', () => {
                   this.revealComputerShips();
                   document.getElementById('forfeit-sidebar').classList.add('hidden');
+                  var winModal = new bootstrap.Modal(document.getElementById('loseModal'));
+                  winModal.show();
                   Game.gameOver = true;
                   Game.stats.lostGame();
                   Game.stats.syncStats();
@@ -993,7 +994,7 @@ AI.OPEN_MED_MAX = 25;
 AI.OPEN_LOW_MIN = 10;
 AI.OPEN_LOW_MAX = 20;
 // Amount of randomness when selecting between cells of equal probability
-AI.RANDOMNESS = 0.1;
+AI.RANDOMNESS = 0.01;
 // AI's opening book.
 // This is the pattern of the first cells for the AI to target
 function createOpening(x, y, minWeight, maxWeight) {
